@@ -18,3 +18,5 @@ platform active {csd_platform}
 platform generate
 platform clean
 platform generate
+platform active {csd_platform}
+platform generate -domains 
