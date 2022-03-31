@@ -567,3 +567,635 @@ con
 
 22:31:52 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
 22:39:25 INFO  : Disconnected from the channel tcfchan#23.
+21:19:00 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\temp_xsdb_launch_script.tcl
+21:19:03 INFO  : Platform repository initialization has completed.
+21:19:03 INFO  : XSCT server has started successfully.
+21:19:03 INFO  : Registering command handlers for Vitis TCF services
+21:19:05 INFO  : plnx-install-location is set to ''
+21:19:05 INFO  : Successfully done setting XSCT server connection channel  
+21:19:05 INFO  : Successfully done query RDI_DATADIR 
+21:19:05 INFO  : Successfully done setting workspace for the tool. 
+21:20:31 INFO  : Result from executing command 'getProjects': csd_platform
+21:20:31 INFO  : Result from executing command 'getPlatforms': csd_platform|C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/csd_platform.xpfm
+21:20:31 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:21:17 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:21:27 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:25:15 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:27:05 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:27:37 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:29:01 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:29:05 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:29:30 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:29:39 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:30:14 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:30:27 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:30:59 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:38:15 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:38:22 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:40:42 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:40:42 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:40:42 INFO  : 'jtag frequency' command is executed.
+21:40:42 INFO  : Context for 'APU' is selected.
+21:40:42 INFO  : System reset is completed.
+21:40:45 INFO  : 'after 3000' command is executed.
+21:40:45 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:40:48 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:40:48 INFO  : Context for 'APU' is selected.
+21:40:48 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:40:48 INFO  : 'configparams force-mem-access 1' command is executed.
+21:40:48 INFO  : Context for 'APU' is selected.
+21:40:48 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:40:48 INFO  : 'ps7_init' command is executed.
+21:40:48 INFO  : 'ps7_post_config' command is executed.
+21:40:48 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:40:48 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:40:48 INFO  : 'configparams force-mem-access 0' command is executed.
+21:40:48 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:40:48 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:40:48 INFO  : 'con' command is executed.
+21:40:48 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:40:48 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:42:07 INFO  : Disconnected from the channel tcfchan#9.
+21:42:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:42:25 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:42:25 INFO  : 'jtag frequency' command is executed.
+21:42:25 INFO  : Context for 'APU' is selected.
+21:42:25 INFO  : System reset is completed.
+21:42:28 INFO  : 'after 3000' command is executed.
+21:42:29 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:42:31 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:42:31 INFO  : Context for 'APU' is selected.
+21:42:31 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:42:31 INFO  : 'configparams force-mem-access 1' command is executed.
+21:42:31 INFO  : Context for 'APU' is selected.
+21:42:31 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:42:31 INFO  : 'ps7_init' command is executed.
+21:42:31 INFO  : 'ps7_post_config' command is executed.
+21:42:31 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:42:31 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:42:31 INFO  : 'configparams force-mem-access 0' command is executed.
+21:42:31 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:42:31 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:42:32 INFO  : 'con' command is executed.
+21:42:32 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:42:32 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:44:20 INFO  : Disconnected from the channel tcfchan#10.
+21:45:01 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:45:09 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:45:09 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:45:09 INFO  : 'jtag frequency' command is executed.
+21:45:09 INFO  : Context for 'APU' is selected.
+21:45:09 INFO  : System reset is completed.
+21:45:12 INFO  : 'after 3000' command is executed.
+21:45:13 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:45:15 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:45:15 INFO  : Context for 'APU' is selected.
+21:45:15 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:45:15 INFO  : 'configparams force-mem-access 1' command is executed.
+21:45:15 INFO  : Context for 'APU' is selected.
+21:45:15 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:45:15 INFO  : 'ps7_init' command is executed.
+21:45:15 INFO  : 'ps7_post_config' command is executed.
+21:45:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:45:15 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:45:15 INFO  : 'configparams force-mem-access 0' command is executed.
+21:45:15 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:45:16 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:45:16 INFO  : 'con' command is executed.
+21:45:16 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:45:16 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:47:01 INFO  : Disconnected from the channel tcfchan#12.
+21:47:21 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:47:28 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:47:29 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:47:29 INFO  : 'jtag frequency' command is executed.
+21:47:29 INFO  : Context for 'APU' is selected.
+21:47:29 INFO  : System reset is completed.
+21:47:32 INFO  : 'after 3000' command is executed.
+21:47:32 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:47:34 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:47:34 INFO  : Context for 'APU' is selected.
+21:47:34 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:47:34 INFO  : 'configparams force-mem-access 1' command is executed.
+21:47:34 INFO  : Context for 'APU' is selected.
+21:47:34 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:47:35 INFO  : 'ps7_init' command is executed.
+21:47:35 INFO  : 'ps7_post_config' command is executed.
+21:47:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:47:35 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:47:35 INFO  : 'configparams force-mem-access 0' command is executed.
+21:47:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:47:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:47:35 INFO  : 'con' command is executed.
+21:47:35 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:47:35 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:48:10 INFO  : Disconnected from the channel tcfchan#14.
+21:48:12 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:48:20 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:48:20 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:48:20 INFO  : 'jtag frequency' command is executed.
+21:48:20 INFO  : Context for 'APU' is selected.
+21:48:20 INFO  : System reset is completed.
+21:48:23 INFO  : 'after 3000' command is executed.
+21:48:23 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:48:26 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:48:26 INFO  : Context for 'APU' is selected.
+21:48:26 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:48:26 INFO  : 'configparams force-mem-access 1' command is executed.
+21:48:26 INFO  : Context for 'APU' is selected.
+21:48:26 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:48:26 INFO  : 'ps7_init' command is executed.
+21:48:26 INFO  : 'ps7_post_config' command is executed.
+21:48:26 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:48:26 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:48:26 INFO  : 'configparams force-mem-access 0' command is executed.
+21:48:26 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:48:26 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:48:26 INFO  : 'con' command is executed.
+21:48:26 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:48:26 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:48:58 INFO  : Disconnected from the channel tcfchan#16.
+21:50:15 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:50:34 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:50:34 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:50:34 INFO  : 'jtag frequency' command is executed.
+21:50:34 INFO  : Context for 'APU' is selected.
+21:50:34 INFO  : System reset is completed.
+21:50:37 INFO  : 'after 3000' command is executed.
+21:50:37 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:50:40 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:50:40 INFO  : Context for 'APU' is selected.
+21:50:40 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:50:40 INFO  : 'configparams force-mem-access 1' command is executed.
+21:50:40 INFO  : Context for 'APU' is selected.
+21:50:40 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:50:40 INFO  : 'ps7_init' command is executed.
+21:50:40 INFO  : 'ps7_post_config' command is executed.
+21:50:40 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:50:40 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:50:40 INFO  : 'configparams force-mem-access 0' command is executed.
+21:50:40 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:50:40 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:50:40 INFO  : 'con' command is executed.
+21:50:40 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:50:40 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:51:23 INFO  : Disconnected from the channel tcfchan#18.
+21:51:29 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:51:29 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:51:29 INFO  : 'jtag frequency' command is executed.
+21:51:29 INFO  : Context for 'APU' is selected.
+21:51:29 INFO  : System reset is completed.
+21:51:32 INFO  : 'after 3000' command is executed.
+21:51:32 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:51:35 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:51:35 INFO  : Context for 'APU' is selected.
+21:51:35 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:51:35 INFO  : 'configparams force-mem-access 1' command is executed.
+21:51:35 INFO  : Context for 'APU' is selected.
+21:51:35 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:51:35 INFO  : 'ps7_init' command is executed.
+21:51:35 INFO  : 'ps7_post_config' command is executed.
+21:51:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:51:35 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:51:35 INFO  : 'configparams force-mem-access 0' command is executed.
+21:51:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:51:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:51:35 INFO  : 'con' command is executed.
+21:51:35 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:51:35 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:51:49 INFO  : Disconnected from the channel tcfchan#19.
+21:51:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:51:53 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:51:53 INFO  : 'jtag frequency' command is executed.
+21:51:53 INFO  : Context for 'APU' is selected.
+21:51:53 INFO  : System reset is completed.
+21:51:56 INFO  : 'after 3000' command is executed.
+21:51:56 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:51:58 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:51:58 INFO  : Context for 'APU' is selected.
+21:51:58 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:51:58 INFO  : 'configparams force-mem-access 1' command is executed.
+21:51:58 INFO  : Context for 'APU' is selected.
+21:51:58 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:51:59 INFO  : 'ps7_init' command is executed.
+21:51:59 INFO  : 'ps7_post_config' command is executed.
+21:51:59 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:51:59 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:51:59 INFO  : 'configparams force-mem-access 0' command is executed.
+21:51:59 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:51:59 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:51:59 INFO  : 'con' command is executed.
+21:51:59 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:51:59 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:53:46 INFO  : Disconnected from the channel tcfchan#20.
+21:55:17 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:55:38 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:55:38 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:55:38 INFO  : 'jtag frequency' command is executed.
+21:55:38 INFO  : Context for 'APU' is selected.
+21:55:39 INFO  : System reset is completed.
+21:55:42 INFO  : 'after 3000' command is executed.
+21:55:42 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:55:44 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:55:44 INFO  : Context for 'APU' is selected.
+21:55:44 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:55:44 INFO  : 'configparams force-mem-access 1' command is executed.
+21:55:44 INFO  : Context for 'APU' is selected.
+21:55:44 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:55:44 INFO  : 'ps7_init' command is executed.
+21:55:44 INFO  : 'ps7_post_config' command is executed.
+21:55:44 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:55:44 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:55:44 INFO  : 'configparams force-mem-access 0' command is executed.
+21:55:44 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:55:44 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:55:45 INFO  : 'con' command is executed.
+21:55:45 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:55:45 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:56:54 INFO  : Disconnected from the channel tcfchan#22.
+21:57:16 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+21:57:35 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:57:36 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+21:57:36 INFO  : 'jtag frequency' command is executed.
+21:57:36 INFO  : Context for 'APU' is selected.
+21:57:36 INFO  : System reset is completed.
+21:57:39 INFO  : 'after 3000' command is executed.
+21:57:39 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+21:57:41 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+21:57:41 INFO  : Context for 'APU' is selected.
+21:57:41 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+21:57:41 INFO  : 'configparams force-mem-access 1' command is executed.
+21:57:41 INFO  : Context for 'APU' is selected.
+21:57:41 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+21:57:42 INFO  : 'ps7_init' command is executed.
+21:57:42 INFO  : 'ps7_post_config' command is executed.
+21:57:42 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:57:42 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+21:57:42 INFO  : 'configparams force-mem-access 0' command is executed.
+21:57:42 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:57:42 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+21:57:42 INFO  : 'con' command is executed.
+21:57:42 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+21:57:42 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+21:58:11 INFO  : Disconnected from the channel tcfchan#24.
+21:59:50 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+22:00:08 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:00:08 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+22:00:08 INFO  : 'jtag frequency' command is executed.
+22:00:08 INFO  : Context for 'APU' is selected.
+22:00:08 INFO  : System reset is completed.
+22:00:11 INFO  : 'after 3000' command is executed.
+22:00:11 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+22:00:14 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+22:00:14 INFO  : Context for 'APU' is selected.
+22:00:14 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+22:00:14 INFO  : 'configparams force-mem-access 1' command is executed.
+22:00:14 INFO  : Context for 'APU' is selected.
+22:00:14 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+22:00:14 INFO  : 'ps7_init' command is executed.
+22:00:14 INFO  : 'ps7_post_config' command is executed.
+22:00:14 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:00:14 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+22:00:14 INFO  : 'configparams force-mem-access 0' command is executed.
+22:00:14 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:00:14 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:00:14 INFO  : 'con' command is executed.
+22:00:14 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+22:00:14 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+22:02:32 INFO  : Disconnected from the channel tcfchan#26.
+22:02:33 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+22:04:08 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:04:08 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+22:04:08 INFO  : 'jtag frequency' command is executed.
+22:04:08 INFO  : Context for 'APU' is selected.
+22:04:08 INFO  : System reset is completed.
+22:04:11 INFO  : 'after 3000' command is executed.
+22:04:11 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+22:04:14 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+22:04:14 INFO  : Context for 'APU' is selected.
+22:04:14 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+22:04:14 INFO  : 'configparams force-mem-access 1' command is executed.
+22:04:14 INFO  : Context for 'APU' is selected.
+22:04:14 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+22:04:14 INFO  : 'ps7_init' command is executed.
+22:04:14 INFO  : 'ps7_post_config' command is executed.
+22:04:14 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:04:14 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+22:04:14 INFO  : 'configparams force-mem-access 0' command is executed.
+22:04:14 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:04:14 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:04:14 INFO  : 'con' command is executed.
+22:04:14 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+22:04:14 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+22:06:50 INFO  : Checking for BSP changes to sync application flags for project 'csd_lab'...
+22:06:56 INFO  : Disconnected from the channel tcfchan#28.
+22:06:57 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:06:57 INFO  : Jtag cable 'Digilent Zed 210248764082' is selected.
+22:06:57 INFO  : 'jtag frequency' command is executed.
+22:06:57 INFO  : Context for 'APU' is selected.
+22:06:57 INFO  : System reset is completed.
+22:07:00 INFO  : 'after 3000' command is executed.
+22:07:00 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}' command is executed.
+22:07:02 INFO  : Device configured successfully with "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit"
+22:07:02 INFO  : Context for 'APU' is selected.
+22:07:02 INFO  : Hardware design and registers information is loaded from 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa'.
+22:07:02 INFO  : 'configparams force-mem-access 1' command is executed.
+22:07:02 INFO  : Context for 'APU' is selected.
+22:07:02 INFO  : Sourcing of 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl' is done.
+22:07:02 INFO  : 'ps7_init' command is executed.
+22:07:02 INFO  : 'ps7_post_config' command is executed.
+22:07:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:07:03 INFO  : The application 'C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf' is downloaded to processor 'ps7_cortexa9_0'.
+22:07:03 INFO  : 'configparams force-mem-access 0' command is executed.
+22:07:03 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248764082" && level==0 && jtag_device_ctx=="jsn-Zed-210248764082-23727093-0"}
+fpga -file C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/bitstream/SoC_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_platform/export/csd_platform/hw/SoC_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE321/class_experiments_v21/csd_lab/Debug/csd_lab.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:07:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+22:07:03 INFO  : 'con' command is executed.
+22:07:03 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+22:07:03 INFO  : Launch script is exported to file 'C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE321\class_experiments_v21\csd_lab_system\_ide\scripts\systemdebugger_csd_lab_system_standalone.tcl'
+22:07:49 INFO  : Disconnected from the channel tcfchan#30.
