@@ -1,0 +1,16 @@
+{
+  "buildFiles": [
+    "C:\\Users\\test\\Desktop\\Homework1\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\test\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\test\\Desktop\\Homework1\\app\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "native-lib-Debug-arm64-v8a": {
+      "artifactName": "native-lib",
+      "buildCommand": "C:\\Users\\test\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build C:\\Users\\test\\Desktop\\Homework1\\app\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target native-lib",
+      "abi": "arm64-v8a",
+      "output": "C:\\Users\\test\\Desktop\\Homework1\\app\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libnative-lib.so"
+    }
+  }
+}
