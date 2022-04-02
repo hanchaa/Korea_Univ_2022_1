@@ -3,15 +3,15 @@
 #include "obj_teapot.h"
 #include "tex_flower.h"
 
-Shader* Scene::vertexShader = nullptr;
-Shader* Scene::fragmentShader = nullptr;
-Program* Scene::program = nullptr;
-Camera* Scene::camera = nullptr;
-Light* Scene::light = nullptr;
-Object* Scene::teapot = nullptr;
-Material* Scene::flower = nullptr;
+Shader *Scene::vertexShader = nullptr;
+Shader *Scene::fragmentShader = nullptr;
+Program *Scene::program = nullptr;
+Camera *Scene::camera = nullptr;
+Light *Scene::light = nullptr;
+Object *Scene::teapot = nullptr;
+Material *Scene::flower = nullptr;
 
-void Scene::setup(AAssetManager* aAssetManager) {
+void Scene::setup(AAssetManager *aAssetManager) {
 
     // set asset manager
     Asset::setManager(aAssetManager);
@@ -47,13 +47,25 @@ void Scene::setup(AAssetManager* aAssetManager) {
      */
 
     mat4 scaleM, rotMat;
+
     scaleM = transpose(mat4(1.0f, 0.0f, 0.0f, 0.0f,  // In OpenGL, the matrix must be transposed
-                            0.0f, 1.0f, 0.0f, 0.0f,
+                            0.0f, 2.0f, 0.0f, 0.0f,
                             0.0f, 0.0f, 1.0f, 0.0f,
                             0.0f, 0.0f, 0.0f, 1.0f));
 
-    // rotMat =;
-    // teapot->worldMatrix =;
+
+    vec3 n = normalize(vec3(10.0f, 0.0f, 10.0f));
+    vec3 u = normalize(cross(n, vec3(0.0f, 1.0f, 0.0f)));
+    vec3 v = normalize(cross(n, u));
+
+    mat4 transMat = translate(mat4(1.0f), vec3(0.0f, 0.0f, -10.0f));
+    mat4 rotAxisMat = mat4(vec4(u, 0.0f), vec4(v, 0.0f), vec4(n, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    mat4 rotZaxis = rotate(mat4(1.0f), radians(-90.0f), vec3(0.0f, 0.0f, 1.0f));
+    mat4 restoreMat = translate(mat4(1.0f), vec3(0.0f, 0.0f, 10.0f));
+
+    rotMat = restoreMat * rotAxisMat * rotZaxis * transpose(rotAxisMat) * transMat;
+
+    teapot->worldMatrix = rotMat * scaleM;
     //////////////////////////////
 }
 
@@ -72,7 +84,7 @@ void Scene::update(float deltaTime) {
      *  Rotate the teapot about the z-axis.
      */
 
-    // teapot->worldMatrix = ;
+    teapot->worldMatrix = rotate(mat4(1.0f), deltaTime, vec3(0.0f, 0.0f, 1.0f)) * (teapot->worldMatrix);
     //////////////////////////////
 
 
@@ -85,11 +97,11 @@ void Scene::update(float deltaTime) {
     teapot->draw();
 }
 
-void Scene::rotateCamera(float dx,float dy) {
+void Scene::rotateCamera(float dx, float dy) {
     float rotationSensitivity = 0.03;
 
-    float thetaYaw=glm::radians(rotationSensitivity*dx);
-    float thetaPinch=glm::radians(rotationSensitivity*dy);
+    float thetaYaw = glm::radians(rotationSensitivity * dx);
+    float thetaPinch = glm::radians(rotationSensitivity * dy);
 
     rotateCameraYaw(thetaYaw);
     rotateCameraPitch(thetaPinch);
@@ -106,6 +118,12 @@ void Scene::rotateCameraYaw(float theta) {
      *  The v vector can be accessed via camera->cameraV.
      *  The n vector can be accessed via camera->cameraN.
      */
+    mat4 rotAxisMat = mat4(vec4(camera->cameraU, 0.0f), vec4(camera->cameraV, 0.0f), vec4(camera->cameraN, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    mat4 rotPitchMat = rotate(mat4(1.0f), theta, vec3(0.0f, 1.0f, 0.0f));
+
+    camera->cameraU = vec3(rotAxisMat * rotPitchMat * vec4(1.0f, 0.0f, 0.0f, 1.0f));
+    camera->cameraV = vec3(rotAxisMat * rotPitchMat * vec4(0.0f, 1.0f, 0.0f, 1.0f));
+    camera->cameraN = vec3(rotAxisMat * rotPitchMat * vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
     camera->updateViewMatrix();
     //////////////////////////////
@@ -122,6 +140,12 @@ void Scene::rotateCameraPitch(float theta) {
      *  The v vector can be accessed via camera->cameraV.
      *  The n vector can be accessed via camera->cameraN.
      */
+    mat4 rotAxisMat = mat4(vec4(camera->cameraU, 0.0f), vec4(camera->cameraV, 0.0f), vec4(camera->cameraN, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    mat4 rotPitchMat = rotate(mat4(1.0f), theta, vec3(1.0f, 0.0f, 0.0f));
+
+    camera->cameraU = vec3(rotAxisMat * rotPitchMat * vec4(1.0f, 0.0f, 0.0f, 1.0f));
+    camera->cameraV = vec3(rotAxisMat * rotPitchMat * vec4(0.0f, 1.0f, 0.0f, 1.0f));
+    camera->cameraN = vec3(rotAxisMat * rotPitchMat * vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
     camera->updateViewMatrix();
     //////////////////////////////
@@ -133,7 +157,7 @@ void Scene::translateLeft(float amount) {
     /* TODO: Problem 4.
      *  Calculate the camera position(eye) when translated left.
      */
-
+    camera->eye -= amount * camera->cameraU;
     camera->updateViewMatrix();
     //////////////////////////////
 }
@@ -145,6 +169,7 @@ void Scene::translateFront(float amount) {
      *  Calculate the camera position(eye) when translated front.
      */
 
+    camera->eye -= amount * camera->cameraN;
     camera->updateViewMatrix();
     //////////////////////////////
 }
@@ -156,6 +181,7 @@ void Scene::translateRight(float amount) {
      *  Calculate the camera position(eye) when translated right.
      */
 
+    camera->eye += amount * camera->cameraU;
     camera->updateViewMatrix();
     //////////////////////////////
 }
@@ -167,6 +193,7 @@ void Scene::translateBack(float amount) {
      *  Calculate the camera position(eye) when translated back.
      */
 
+    camera->eye += amount * camera->cameraN;
     camera->updateViewMatrix();
     //////////////////////////////
 }

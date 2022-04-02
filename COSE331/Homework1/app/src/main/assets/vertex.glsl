@@ -18,9 +18,9 @@ void main() {
      *  Fill in the lines below.
      */
 
-    // gl_Position = ;
-    // v_normal = ;
-    // v_texCoord = ;
+    gl_Position = projMat * viewMat * worldMat * vec4(position, 1.0);
+    v_normal = normalize(transpose(inverse(mat3(worldMat))) * normal);
+    v_texCoord = texCoord;
     //////////////////////////////
 
     vec3 posWS = (worldMat * vec4(position, 1.0)).xyz;

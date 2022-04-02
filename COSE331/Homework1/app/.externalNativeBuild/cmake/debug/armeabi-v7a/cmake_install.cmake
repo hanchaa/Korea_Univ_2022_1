@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/test/Desktop/Homework1/app
+# Install script for directory: C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE331/Homework1/app
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/test/Desktop/Homework1/app/.externalNativeBuild/cmake/debug/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/hanchaa/Desktop/Korea_Univ_2022_1/COSE331/Homework1/app/.externalNativeBuild/cmake/debug/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
