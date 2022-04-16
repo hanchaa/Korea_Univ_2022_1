@@ -14,6 +14,8 @@ ldr r12, =uart_TX_RX_FIFO0
 ldr r4, =seperator		// 구분선 출력
 bl print_string
 
+
+ldr r5, =backup_registers // 레지스터 값을 백업할 메모리 주소
 mov r7, #0				// 몇 번째 레지스터인지 저장
 bl loop_register
 
@@ -54,12 +56,8 @@ ldrne r9, =0x76
 bl wait_and_transmit
 
 //,
-ldr r9, =0x2c
-bl wait_and_transmit
-
-// " "
-ldr r9, =0x20
-bl wait_and_transmit
+ldr r4, =comma
+bl print_string
 
 // i
 ldr r4, =0x80
@@ -78,12 +76,8 @@ ldrne r9, =0x66
 bl wait_and_transmit
 
 //,
-ldr r9, =0x2c
-bl wait_and_transmit
-
-// " "
-ldr r9, =0x20
-bl wait_and_transmit
+ldr r4, =comma
+bl print_string
 
 // arm thumb jazelle
 ldr r2, =0x01000020
@@ -135,29 +129,66 @@ ldreq r4, =system_mode
 
 bl print_string
 
+// cpsr raw 값 출력
 ldr r5, =0xF0000000			// 몇 번째 자리를 출력할지 저장
 mov r6, #28					// 추출 후 몇번 오른쪽으로 쉬프트 해야하는지 저장
+mov r4, r3
 
-bl extract_cpsr_digit
+bl extract_digit
 
+// ")"
 ldr r9, =0x29
 bl wait_and_transmit
 
 // \r\n
-ldr r9, =0x0d
-bl wait_and_transmit
-ldr r9, =0x0a
-bl wait_and_transmit
+ldr r4, =new_line
+bl print_string
 // cpsr 출력 끝
 
 ldr r4, =seperator
 bl print_string
 
+// cpsr 복원
+msr cpsr_all, r3
+
+// r0-r12, lr 복원
+ldr r14, =backup_registers
+ldmia r14!, {r0-r12}
+ldr r14, [r14]
+
 .endm
+
+.text
+// r4에 저장된 메모리 주소에 있는 string 출력
+print_string:
+	push {lr}
+	ldrb r9, [r4], #1
+
+	bl wait_and_transmit
+
+	cmp r9, #0
+	bne print_string
+
+	pop {lr}
+	moveq pc, lr
+
+// tx 버퍼에 공간이 있을 때까지 대기 후 전송
+wait_and_transmit:
+	ldr r10, [r11]
+	and r10, r10, #0x10
+	cmp r10, #0x10
+	beq wait_and_transmit
+
+	strb r9, [r12]
+
+	mov pc, lr
 
 loop_register:
 	ldmfd sp!, {r4} 			// 스택에 저장해둔 레지스터 로드
+	str r4, [r5], #4			// 레지스터 복원을 위해 값 저장
+	push {r5}					// 레지스터 복원을 위해 저장해둘 메모리 위치 push
 
+	// r0 - r12 출력
 	push {lr}
 	bl print_register
 	pop {lr}
@@ -165,6 +196,7 @@ loop_register:
 	add r7, r7, #1
 
 	cmp r7, #13
+	popne {r5}					// 레지스터 복원을 위해 저장해둘 메모리 위치 pop
 	bne loop_register
 
 	// r13 출력
@@ -175,6 +207,10 @@ loop_register:
 	pop {lr}
 
 	// r14 출력
+	// lr 백업
+	pop {r5}
+	str r1, [r5]
+
 	push {lr}
 	mov r4, r1
 	bl print_register
@@ -187,31 +223,6 @@ loop_register:
 	bl print_register
 	add r7, r7, #1
 	pop {lr}
-
-	mov pc, lr
-
-extract_cpsr_digit:
-	and r9, r3, r5			// 레지스터 값에서 특정 자리 수 추출
-	lsr r9, r9, r6			// 가장 오른쪽 4비트로 쉬프트
-
-	cmp r9, #10
-	addlt r9, #48
-	addge r9, #87
-
-	push {lr}
-	bl wait_and_transmit	// 추출한 숫자 출력
-
-	lsr r5, r5, #4			// 추출 자리 수 이동
-	sub r6, r6, #4			// 쉬프트 횟수 감소
-
-	cmp r6, #12				// 4자리 수 출력 했으면 _ 출력
-	moveq r9, #95
-	bleq wait_and_transmit
-
-	cmp r6, #-4				// 모든 자리 수를 추출 할 때까지 반복
-	pop {lr}
-
-	bne extract_cpsr_digit
 
 	mov pc, lr
 
@@ -261,6 +272,21 @@ print_register:
 	ldr r5, =0xF0000000			// 몇 번째 자리를 출력할지 저장
 	mov r6, #28					// 추출 후 몇번 오른쪽으로 쉬프트 해야하는지 저장
 
+	bl extract_digit
+
+	cmp r7, #3				// 레지스터 4개 단위로 줄 바꿈
+	cmpne r7, #7
+	cmpne r7, #11
+	cmpne r7, #15
+
+	ldreq r4, =new_line		// 4개를 출력했으면 줄바꿈
+	ldrne r4, =comma		// 그렇지 않으면 ", "
+	bl print_string
+
+	pop {lr}
+	mov pc, lr
+
+
 extract_digit:
 	and r9, r4, r5			// 레지스터 값에서 특정 자리 수 추출
 	lsr r9, r9, r6			// 가장 오른쪽 4비트로 쉬프트
@@ -269,62 +295,95 @@ extract_digit:
 	addlt r9, #48
 	addge r9, #87
 
+	push {lr}
 	bl wait_and_transmit	// 추출한 숫자 출력
+	pop {lr}
 
 	lsr r5, r5, #4			// 추출 자리 수 이동
 	sub r6, r6, #4			// 쉬프트 횟수 감소
 
 	cmp r6, #12				// 4자리 수 출력 했으면 _ 출력
 	moveq r9, #95
+	pusheq {lr}
 	bleq wait_and_transmit
+	popeq {lr}
 
 	cmp r6, #-4				// 모든 자리 수를 추출 할 때까지 반복
 	bne extract_digit
 
-	cmp r7, #3				// 레지스터 4개 단위로 줄 바꿈
-	cmpne r7, #7
-	cmpne r7, #11
-	cmpne r7, #15
-
-	bne print_comma
-
-	mov r9, #0x0d
-	bl wait_and_transmit
-	mov r9, #0x0a
-	bl wait_and_transmit
-
-	pop {lr}
 	mov pc, lr
 
-// 줄을 바꾸지 않으면 ", " 출력
-print_comma:
-	ldr r9, =0x2c
-	bl wait_and_transmit
+.data
+backup_registers:
+	.space 56, 0x0
 
-	ldr r9, =0x20
-	bl wait_and_transmit
+new_line:
+	.byte 0x0d
+	.byte 0x0a
+	.byte 0x00
 
-	pop {lr}
-	mov pc, lr
+comma:
+	.ascii ", "
+	.byte 0x00
 
-print_string:
-	push {lr}
-	ldrb r9, [r4], #1
+seperator:
+	.ascii "--------------------------------------------------------------------------"
+	.byte 0x0D
+	.byte 0x0A
+	.byte 0x00
 
-	bl wait_and_transmit
+cpsr:
+	.ascii "cpsr = "
+	.byte 0x00
 
-	cmp r9, #0
-	bne print_string
+arm_mode:
+	.ascii "ARM mode, current mode = "
+	.byte 0x00
 
-	pop {lr}
-	moveq pc, lr
+thumb_mode:
+	.ascii "Thumb mode, current mode = "
+	.byte 0x00
 
-wait_and_transmit:
-	ldr r10, [r11]
-	and r10, r10, #0x8
-	cmp r10, #0x8
-	bne wait_and_transmit
+jazelle_mode:
+	.ascii "Jazelle mode, current mode = "
+	.byte 0x00
 
-	strb r9, [r12]
+thumbee_mode:
+	.ascii "ThumbEE mode, current mode = "
+	.byte 0x00
 
-	mov pc, lr
+user_mode:
+	.ascii "USR ( =0x"
+	.byte 0x00
+
+fiq_mode:
+	.ascii "FIQ ( =0x"
+	.byte 0x00
+
+irq_mode:
+	.ascii "IRQ ( =0x"
+	.byte 0x00
+
+svc_mode:
+	.ascii "SVC ( =0x"
+	.byte 0x00
+
+monitor_mode:
+	.ascii "MON ( =0x"
+	.byte 0x00
+
+abort_mode:
+	.ascii "ABT ( =0x"
+	.byte 0x00
+
+hyp_mode:
+	.ascii "HYP ( =0x"
+	.byte 0x00
+
+undefined_mode:
+	.ascii "UND ( =0x"
+	.byte 0x00
+
+system_mode:
+	.ascii "SYS ( =0x"
+	.byte 0x00
