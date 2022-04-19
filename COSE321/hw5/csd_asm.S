@@ -14,8 +14,6 @@ main:
     ldr r2, =32 			// 총 단어의 개수
 
     DEBUG_macro				// 데이터 주소 및 단어 개수 로드 후 레지스터 확인
-    b move_data				// ltorg가 다음 pc부터 literal pool을 만들므로 직접 b instruction 호출
-   	.ltorg
 
 move_data: 					// Input_data를 Output_data 위치로 이
 	ldr r3, [r0], #4 		// Input_data 한 개 load
