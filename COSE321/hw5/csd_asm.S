@@ -7,11 +7,11 @@
 
 main:
 	UART_init
-	DEBUG_macro				// UART_init 후 레지스터 상태 확인
+	DEBUG_macro
 
+    ldr r2, =32 			// 총 단어의 개수
     ldr r0, =Input_data 	// Input_data의 메모리 주소
     ldr r1, =Output_data 	// Ouput_data의 메모리 주소
-    ldr r2, =32 			// 총 단어의 개수
 
     DEBUG_macro				// 데이터 주소 및 단어 개수 로드 후 레지스터 확인
 
@@ -21,9 +21,8 @@ move_data: 					// Input_data를 Output_data 위치로 이
 
 	sub r2, r2, #1 			// 데이터 개수 카운트 감소
 	cmp r2, #0 				// 모든 데이터를 옮겼는지 확인
-	bne move_data			// 데이터를 덜 옮겼으면 다시 move_data label로 이동
-
 	DEBUG_macro				// 데이터를 다 옮기고 난 후 레지스터 확인
+	bne move_data			// 데이터를 덜 옮겼으면 다시 move_data label로 이동
 
 // 버블 정렬 알고리즘 이용
 // L0 ~ L2 outer loop

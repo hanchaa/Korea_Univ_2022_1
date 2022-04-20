@@ -291,8 +291,8 @@ b 6f // done
 	lsr r9, r9, r6			// 가장 오른쪽 4비트로 쉬프트
 
 	cmp r9, #10
-	addlt r9, #48
-	addge r9, #87
+	addlt r9, r9, #48
+	addge r9, r9, #87
 
 	push {lr}
 	bl 2b // wait_and_transmit	// 추출한 숫자 출력
@@ -314,7 +314,7 @@ b 6f // done
 
 	.ltorg
 
-6: // done
+6:
 	nop
 
 .data
