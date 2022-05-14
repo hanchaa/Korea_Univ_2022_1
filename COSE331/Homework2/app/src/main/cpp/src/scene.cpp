@@ -43,7 +43,8 @@ void Scene::screen(int width, int height) {
     Scene::height = height;
 }
 
-
+float elapsedTime = 0;
+vector<Vertex> originalVertices = playerVertices;
 void Scene::update(float deltaTime) {
     Scene::program->use();
 
@@ -51,15 +52,10 @@ void Scene::update(float deltaTime) {
 
     //////////////////////////////
     /* TODO */
-    static float elapsedTime;
     elapsedTime += deltaTime;
 
     if (elapsedTime >= 4)
         elapsedTime -= 4;
-
-    static vector<Vertex> originalVertices;
-    if (originalVertices.empty())
-        originalVertices = playerVertices;
 
     vector<mat4> toBone, toParent;
 
@@ -88,6 +84,7 @@ void Scene::update(float deltaTime) {
     quat nextRotateQuat = quat_cast(nextRotate);
     quat interpolatedRotateQuat = slerp(prevRotateQuat, nextRotateQuat, elapsedTime - (int)elapsedTime);
     mat4 interpolatedRotate = mat4_cast(interpolatedRotateQuat);
+
     mat4 interpolatedTranslate = translate(mix(vec3(prevMotion[0], prevMotion[1], prevMotion[2]), vec3(nextMotion[0], nextMotion[1], nextMotion[2]), elapsedTime - (int)elapsedTime));
 
     animatedToRoot.push_back(toParent[0] * interpolatedTranslate * interpolatedRotate);
@@ -149,8 +146,6 @@ void Scene::mouseDownEvents(float x, float y) {
         prevV = normalize(vec3(x, y, 0.0f));
     else
         prevV = vec3(x, y, sqrt(1 - x * x - y * y));
-
-    LOG_PRINT_DEBUG("%f %f", x, y);
     //////////////////////////////
 }
 
