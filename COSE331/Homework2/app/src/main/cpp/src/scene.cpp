@@ -49,13 +49,82 @@ void Scene::update(float deltaTime) {
 
     //////////////////////////////
     /* TODO */
+    static float elapsedTime;
+    elapsedTime += deltaTime;
 
-    // Line Drawer & Debugger
-    glLineWidth(20);
-    Scene::lineDraw->load({{vec3(-20.0f, 0.0f, 0.0f)}, {vec3(20.0f, 0.0f, 0.0f)}}, {0, 1});
-    Scene::lineDraw->draw();
+    if (elapsedTime >= 4)
+        elapsedTime -= 4;
 
-    // LOG_PRINT_DEBUG("You can also debug variables with this function: %f", M_PI);
+    static vector<Vertex> originalVertices;
+    if (originalVertices.empty())
+        originalVertices = playerVertices;
+
+    vector<mat4> toBone, toParent;
+
+    toParent.push_back(translate(jOffsets[0]));
+    toBone.push_back(inverse(toParent[0]));
+
+    for (int i = 1; i < 28; i++) {
+        mat4 parentMat = toBone[jParents[i]];
+        toParent.push_back(translate(jOffsets[i]));
+
+        toBone.push_back(inverse(toParent[i]) * parentMat);
+    }
+
+    vector<mat4> animatedToRoot;
+    vector<float> prevMotion = motions[(int)elapsedTime], nextMotion = motions[(int)(elapsedTime + 1) % 4];
+
+    mat4 prevRotate = rotate(radians(prevMotion[5]), vec3(0.0f, 0.0f, 1.0f))
+                      * rotate(radians(prevMotion[3]), vec3(1.0f, 0.0f, 0.0f))
+                      * rotate(radians(prevMotion[4]), vec3(0.0f, 1.0f, 0.0f));
+
+    mat4 nextRotate = rotate(radians(nextMotion[5]), vec3(0.0f, 0.0f, 1.0f))
+                      * rotate(radians(nextMotion[3]), vec3(1.0f, 0.0f, 0.0f))
+                      * rotate(radians(nextMotion[4]), vec3(0.0f, 1.0f, 0.0f));
+
+    quat prevRotateQuat = quat_cast(prevRotate);
+    quat nextRotateQuat = quat_cast(nextRotate);
+    quat interpolatedRotateQuat = slerp(prevRotateQuat, nextRotateQuat, elapsedTime - (int)elapsedTime);
+    mat4 interpolatedRotate = mat4_cast(interpolatedRotateQuat);
+    mat4 interpolatedTranslate = translate(mix(vec3(prevMotion[0], prevMotion[1], prevMotion[2]), vec3(nextMotion[0], nextMotion[1], nextMotion[2]), elapsedTime - (int)elapsedTime));
+
+    animatedToRoot.push_back(toParent[0] * interpolatedTranslate * interpolatedRotate);
+
+    for (int i = 1; i < 28; i++) {
+        prevRotate = rotate(radians(prevMotion[i * 3 + 5]), vec3(0.0f, 0.0f, 1.0f))
+                     * rotate(radians(prevMotion[i * 3 + 3]), vec3(1.0f, 0.0f, 0.0f))
+                     * rotate(radians(prevMotion[i * 3 + 4]), vec3(0.0f, 1.0f, 0.0f));
+
+        nextRotate = rotate(radians(nextMotion[i * 3 + 5]), vec3(0.0f, 0.0f, 1.0f))
+                      * rotate(radians(nextMotion[i * 3 + 3]), vec3(1.0f, 0.0f, 0.0f))
+                      * rotate(radians(nextMotion[i * 3 + 4]), vec3(0.0f, 1.0f, 0.0f));
+
+        prevRotateQuat = quat_cast(prevRotate);
+        nextRotateQuat = quat_cast(nextRotate);
+        interpolatedRotateQuat = mix(prevRotateQuat, nextRotateQuat, elapsedTime - (int)elapsedTime);
+        interpolatedRotate = mat4_cast(interpolatedRotateQuat);
+
+        mat4 parentMat = animatedToRoot[jParents[i]];
+        animatedToRoot.push_back(parentMat * toParent[i] * interpolatedRotate);
+    }
+
+    for (int i = 0; i < playerVertices.size(); i++) {
+        vec3 pos = originalVertices[i].pos, normal = originalVertices[i].nor;
+        vec4 weight = originalVertices[i].weight;
+        ivec4 bone = originalVertices[i].bone;
+
+        mat4 M = mat4(0.0f);
+
+        for (int j = 0; j < 4; j++) {
+            if (bone[j] == -1)
+                continue;
+
+            M += weight[j] * animatedToRoot[bone[j]] * toBone[bone[j]];
+        }
+
+        playerVertices[i].pos = vec3(M * vec4(pos, 1.0f));
+        playerVertices[i].nor = transpose(inverse(mat3(M))) * normal;
+    }
 
     //////////////////////////////
 
