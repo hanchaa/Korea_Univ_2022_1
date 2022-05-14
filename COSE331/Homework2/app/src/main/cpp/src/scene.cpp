@@ -39,6 +39,8 @@ void Scene::setup(AAssetManager* aAssetManager) {
 
 void Scene::screen(int width, int height) {
     Scene::camera->aspect = (float) width/height;
+    Scene::width = width;
+    Scene::height = height;
 }
 
 
@@ -133,14 +135,22 @@ void Scene::update(float deltaTime) {
 }
 
 
-
+vec3 prevV;
 void Scene::mouseDownEvents(float x, float y) {
     //////////////////////////////
     /* TODO: Optional problem
      * object rotating
      * Automatically called when mouse down
      */
+    x = (2 * x / width) - 1;
+    y = 1 - (2 * y / height);
 
+    if (x * x + y * y > 1)
+        prevV = normalize(vec3(x, y, 0.0f));
+    else
+        prevV = vec3(x, y, sqrt(1 - x * x - y * y));
+
+    LOG_PRINT_DEBUG("%f %f", x, y);
     //////////////////////////////
 }
 
@@ -150,7 +160,29 @@ void Scene::mouseMoveEvents(float x, float y) {
      * object rotating
      * Automatically called when mouse move
      */
+    x = (2 * x / width) - 1;
+    y = 1 - (2 * y / height);
 
+    vec3 v;
+    if (x * x + y * y > 1)
+        v = normalize(vec3(x, y, 0.0f));
+    else
+        v = vec3(x, y, sqrt(1 - x * x - y * y));
+
+    float degree = acos(dot(prevV, v));
+
+    vec3 rotateAxis = cross(prevV, v);
+    rotateAxis = vec3(inverse(player->worldMat) * inverse(camera->viewMatrix) * vec4(rotateAxis, 0.0f));
+
+    if (rotateAxis[0] == 0 && rotateAxis[1] == 0 && rotateAxis[2] == 0)
+        return;
+
+    if (isnan(degree))
+        return;
+
+    player->worldMat = player->worldMat * rotate(mat4(1.0f), degree, rotateAxis);
+
+    prevV = v;
     //////////////////////////////
 }
 
