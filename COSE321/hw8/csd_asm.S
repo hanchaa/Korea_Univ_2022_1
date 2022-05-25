@@ -6,7 +6,7 @@
 
 .global main
 main:
-	ldr r0, = LED_ADDR
+	ldr r0, =LED_ADDR
 	mov r1,  #0xC3
 	strb r1, [r0]
 
