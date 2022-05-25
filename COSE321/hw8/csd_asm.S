@@ -49,12 +49,6 @@ disable_cache:
 	mov pc, lr
 
 enable_cache:
-	// Read Cache Type Register (CTR)
-	mrc p15, 0, r1, c0, c0, 1
-
-	// Read Cache Level ID Register (CLIDR)
-	mrc p15, 1, r2, c0, c0, 1
-
 	@------------------------
 	@ Enable Caches (L2)
 	@------------------------
