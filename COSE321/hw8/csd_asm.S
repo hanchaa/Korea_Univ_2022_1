@@ -7,7 +7,7 @@
 .global main
 main:
 	ldr r0, = LED_ADDR
-	mv r1, #0xC3
+	mov r1,  #0xC3
 	strb r1, [r0]
 
 forever:
@@ -15,7 +15,7 @@ forever:
 	ldr r0, =SW_ADDR
 	ldrb r1, [r0]
 	
-	// 스위치가 내려가있으면 cache disable, 올라가있으면 cache enable
+	// 스위치가 내려가 있으면 cache disable, 올라가 있으면 cache enable
 	cmp r1, #0
 	bleq disable_cache
 	blne enable_cache
