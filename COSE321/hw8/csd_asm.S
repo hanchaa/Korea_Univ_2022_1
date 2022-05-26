@@ -15,7 +15,8 @@ forever:
 	ldr r0, =SW_ADDR
 	ldrb r1, [r0]
 	
-	// 스위치가 내려가 있으면 cache disable, 올라가 있으면 cache enable
+	// 첫 번째 스위치가 내려가 있으면 cache disable, 올라가 있으면 cache enable
+	and r1, r1, #0b1
 	cmp r1, #0
 	bleq disable_cache
 	blne enable_cache
