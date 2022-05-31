@@ -162,6 +162,7 @@ HitData get_closest_hit(vec3 eye, vec3 ray) {
 
 	HitData closest_hit;
 	closest_hit.object_index = -1;
+	closest_hit.is_hit = false;
 
 	float t_min = 9999.f;
 	for (int i = 0; i < sphere_positions.size(); i++)
@@ -212,32 +213,57 @@ vec3 get_phong_color(vec3 input_ray, HitData hit, Material m) {
 
 
 vec3 get_reflection_ray(vec3 input_ray, HitData hit) {
-
 	//TODO: Problem1
-	return input_ray;
+	vec3 reflection_ray = normalize(input_ray - 2 * dot(hit.normal, input_ray) * hit.normal);
+
+	return reflection_ray;
 }
 vec3 get_refraction_ray(vec3 input_ray, HitData hit, Material m) {
-
 	//TODO: Problem2
-	return input_ray;
+	float eta_ratio = hit.is_front ? 1 / m.n : m.n / 1;
+	float temp = (eta_ratio * dot(hit.normal, input_ray) + sqrt(1 - pow(eta_ratio, 2) * (1 - pow(dot(hit.normal, input_ray), 2))));
+	vec3 refraction_ray = normalize(eta_ratio * input_ray - temp * hit.normal);
+
+	return refraction_ray;
 
 }
 
 bool is_lighted(vec3 eye) {
-
 	//TODO: Problem3
+	vec3 shadow_ray = normalize(LIGHT_POS - eye);
+	HitData closest_hit = get_closest_hit(eye, shadow_ray);
 
-	return true;
+	return !closest_hit.is_hit;
 }
 void construct_normal_map(vector<vector<vec3>>& img_height, vector<vector<vec3>>& img_normal)
 {
 	//TODO: Problem4
-	for (int x = 0; x < TEXTURE_IMAGE_WIDTH-1; x++)
+	for (int x = 0; x < TEXTURE_IMAGE_WIDTH; x++)
 	{
-		for (int y = 0; y < TEXTURE_IMAGE_HEIGHT-1; y++)
+		for (int y = 0; y < TEXTURE_IMAGE_HEIGHT; y++)
 		{
+			vec3 h_x = vec3(0, 0, 1);
+			
+			if (x == 0)
+				h_x = img_height[x + 1][y] - img_height[x][y];
+			else if (x == TEXTURE_IMAGE_WIDTH - 1)
+				h_x = img_height[x][y] - img_height[x - 1][y];
+			else
+				h_x = img_height[x + 1][y] - img_height[x - 1][y];
 
-			img_normal[x][y] = vec3(0, 0, 1);
+			vec3 h_y = vec3(0, 0, 1);
+
+			if (y == 0)
+				h_y = img_height[x][y + 1] - img_height[x][y];
+			else if (y == TEXTURE_IMAGE_HEIGHT - 1)
+				h_y = img_height[x][y] - img_height[x][y - 1];
+			else
+				h_y = img_height[x][y + 1] - img_height[x][y - 1];
+
+			vec3 normal = vec3(-2 * h_x[0], -2 * h_y[0], 4);
+			normal = normalize(normal);
+
+			img_normal[x][y] = vec3((normal[0] + 1) / 2, (normal[1] + 1) / 2, (normal[2] + 1) / 2);
 		}
 	}
 
