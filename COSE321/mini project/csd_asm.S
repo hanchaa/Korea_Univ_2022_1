@@ -1,10 +1,3 @@
-// ------------------------------------------
-//  Author: Prof. Taeweon Suh
-//          Computer Science & Engineering
-//          College of Informatics, Korea Univ.
-//  Date:   May 06, 2020
-// ------------------------------------------
-
 #include "csd_zynq_peripherals.h"
 #include "uart_init.s"
 
