@@ -2,14 +2,14 @@
 C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\Renderer.cpp(65,14): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\Renderer.cpp(207,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\Renderer.cpp(224,13): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\Renderer.cpp(327,54): warning C4305: '초기화 중': 'double'에서 '_Ty'(으)로 잘립니다.
+C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\Renderer.cpp(325,54): warning C4305: '초기화 중': 'double'에서 '_Ty'(으)로 잘립니다.
           with
           [
               _Ty=float
           ]
   코드를 생성하고 있습니다.
-  3 of 441 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  4 of 442 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    19 functions had inline decision re-evaluated but remain unchanged
+    15 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   RayTracing.vcxproj -> C:\Users\hanchaa\Desktop\Korea_Univ_2022_1\COSE331\Homework3\x64\Release\Homework3.exe

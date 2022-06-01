@@ -260,10 +260,8 @@ void construct_normal_map(vector<vector<vec3>>& img_height, vector<vector<vec3>>
 			else
 				h_y = img_height[x][y + 1] - img_height[x][y - 1];
 
-			vec3 normal = vec3(-2 * h_x[0], -2 * h_y[0], 4);
-			normal = normalize(normal);
-
-			img_normal[x][y] = vec3((normal[0] + 1) / 2, (normal[1] + 1) / 2, (normal[2] + 1) / 2);
+			vec3 normal = vec3(-2 * h_x.x, -2 * h_y.x, 4);
+			img_normal[x][y] = normalize(normal);
 		}
 	}
 
